@@ -1,1 +1,4 @@
-# cuddly-giggle
+### Installation
+```
+pip install -r requirements.txt
+```
