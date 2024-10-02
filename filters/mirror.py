@@ -8,6 +8,7 @@ from pipe import Pipe
 
 class MirrorFilter(Filter):
     def __init__(self, inputs: list[Pipe], outputs: list[Pipe]):
+        super().__init__()
         self.inputs, self.outputs = inputs, outputs
 
     def run(self):

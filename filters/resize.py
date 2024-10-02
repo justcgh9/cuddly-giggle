@@ -1,5 +1,4 @@
 from multiprocessing import Process
-from typing import Self
 
 import cv2
 
@@ -15,6 +14,8 @@ class ResizeFilter(Filter):
         width: int = 600,
         height: int = 600,
     ) -> None:
+        super().__init__()
+
         self.width = width
         self.height = height
         self.inputs = inputs

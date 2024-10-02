@@ -1,14 +1,14 @@
 import cv2
 
 from config import filters_seq
-from pipe import Pipe
 from filters.protocol import Filter
+from pipe import Pipe
 
 
 def run_filters_seq(input_pipe: Pipe, output_pipe: Pipe) -> list[Filter]:
     temp_input_pipe = Pipe()
     temp_output_pipe = Pipe()
-    
+
     filters = []
 
     for i, flt_cls in enumerate(filters_seq):
@@ -27,7 +27,7 @@ def run_filters_seq(input_pipe: Pipe, output_pipe: Pipe) -> list[Filter]:
 
         filters.append(flt)
         flt.run()
-    
+
     return filters
 
 
@@ -50,7 +50,7 @@ if __name__ == '__main__':
         input_pipe.send(frame)
 
         cv2.imshow('Source', frame)
-        cv2.imshow('WebCam', output_pipe.recv())
+        cv2.imshow('Output', output_pipe.recv())
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -58,6 +58,6 @@ if __name__ == '__main__':
     vid.release()
 
     cv2.destroyAllWindows()
-    
+
     for filter in filters:
         filter.process.kill()
