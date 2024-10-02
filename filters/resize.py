@@ -22,10 +22,10 @@ class ResizeFilter(Filter):
         self.outputs = outputs
 
     def run(self) -> None:
-        self.process = Process(target=self._process)
+        self._process = Process(target=self.target)
         self.process.start()
 
-    def _process(self) -> None:
+    def target(self) -> None:
         while True:
             for input_ in self.inputs:
                 frame = input_.recv()

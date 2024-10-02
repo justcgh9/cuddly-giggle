@@ -12,10 +12,10 @@ class BlurFilter(Filter):
         self.inputs, self.outputs = inputs, outputs
 
     def run(self):
-        self.process = multiprocessing.Process(target=self._process)
+        self._process = multiprocessing.Process(target=self.target)
         self.process.start()
 
-    def _process(self):
+    def target(self):
         while True:
             for input_pipe in self.inputs:
                 frame = input_pipe.recv()
