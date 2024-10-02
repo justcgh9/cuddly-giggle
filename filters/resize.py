@@ -21,8 +21,8 @@ class ResizeFilter(Filter):
         self.outputs = outputs
 
     def run(self) -> None:
-        process = Process(target=self._process)
-        process.start()
+        self.process = Process(target=self._process)
+        self.process.start()
 
     def _process(self) -> None:
         while True:

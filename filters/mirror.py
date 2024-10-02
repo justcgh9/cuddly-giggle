@@ -11,8 +11,8 @@ class MirrorFilter(Filter):
         self.inputs, self.outputs = inputs, outputs
 
     def run(self):
-        process = multiprocessing.Process(target=self._process)
-        process.start()
+        self.process = multiprocessing.Process(target=self._process)
+        self.process.start()
 
     def _process(self):
         while True:

@@ -2,11 +2,14 @@ import cv2
 
 from config import filters_seq
 from pipe import Pipe
+from filters.protocol import Filter
 
 
-def run_filters_seq(input_pipe: Pipe, output_pipe: Pipe) -> None:
+def run_filters_seq(input_pipe: Pipe, output_pipe: Pipe) -> list[Filter]:
     temp_input_pipe = Pipe()
     temp_output_pipe = Pipe()
+    
+    filters = []
 
     for i, flt_cls in enumerate(filters_seq):
         if i == 0:
@@ -22,14 +25,17 @@ def run_filters_seq(input_pipe: Pipe, output_pipe: Pipe) -> None:
             temp_input_pipe = temp_output_pipe
             temp_output_pipe = Pipe()
 
+        filters.append(flt)
         flt.run()
+    
+    return filters
 
 
 if __name__ == '__main__':
     input_pipe = Pipe()
     output_pipe = Pipe()
 
-    run_filters_seq(input_pipe, output_pipe)
+    filters = run_filters_seq(input_pipe, output_pipe)
 
     vid = cv2.VideoCapture(0)
     if not vid.isOpened():
@@ -52,3 +58,6 @@ if __name__ == '__main__':
     vid.release()
 
     cv2.destroyAllWindows()
+    
+    for filter in filters:
+        filter.process.kill()
