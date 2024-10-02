@@ -1,5 +1,5 @@
 from typing import Protocol
 
 
-class FilterProtocol(Protocol):
-    pass
+class Filter(Protocol):
+    def run(self) -> None: ...
